@@ -1,0 +1,25 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Issuer
+metadata:
+  name: letsencrypt-staging
+  namespace: jx-staging
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: cosmin.cojocar@gmx.ch
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    dns01:
+      providers:
+        - name: prod-dns
+          clouddns:
+            serviceAccountSecretRef:
+              name: clouddns-service-account
+              key: service-account.json
+            project: gcloud-prod-project
+        - name: cf-dns
+          cloudflare:
+            email: cosmin.cojocar@gmx.ch
+            apiKeySecretRef:
+              name: cloudflare-api-key
+              key: api-key.txt

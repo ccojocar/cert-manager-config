@@ -1,0 +1,13 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: dex-grpc-server-cert
+  namespace: jx-staging
+spec:
+  secretName: dex-grpc-server-cert
+  issuerRef:
+    name: dex-grpc-issuer
+    kind: ClusterIssuer
+  commonName: dex-grpc-server
+  dnsName:
+  - dex
